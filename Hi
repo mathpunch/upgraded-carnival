@@ -1,0 +1,22 @@
+javascript: void (function () {
+  var d = document;
+  if (d.URL.includes("/viewform")) {
+    var a = d.getElementById("https://docs.google.com/forms/d/e/1FAIpQLSdXQvDzN1vXEw4DNaceRUsvDtQUhzObl0_o4tCw8WUzjubEPg/formResponse");
+    if (!a) {
+      a = d.createElement("a");
+      d.querySelector('[role="heading"]').parentElement.appendChild(a);
+    }
+    a.innerText = "Pre-filled Link";
+    a.id = "https://docs.google.com/forms/d/e/1FAIpQLSdXQvDzN1vXEw4DNaceRUsvDtQUhzObl0_o4tCw8WUzjubEPg/formResponse";
+    a.href =
+      d.URL.split("?")[0] +
+      "?" +
+      [...d.getElementsByTagName("input")]
+        .filter(
+          (i) =>
+            i.value && (i.name.includes("entry") || i.name === "emailAddress")
+        )
+        .map((i) => `${i.name}=${encodeURIComponent(i.value)}`)
+        .join("&");
+  }
+})();
